@@ -19,6 +19,8 @@
  * as optional. In your batch file, how many passports are valid?
  */
 
+"use strict";
+
 // Create a Template Literal using ` `
 const entries = `iyr:2015
 hgt:59cm byr:2029 cid:219 pid:9381688753 eyr:1992 hcl:#b6652a
@@ -1057,7 +1059,7 @@ const passport = [/byr/, /iyr/, /eyr/, /hgt/, /hcl/, /ecl/, /pid/, /cid/];
 
 let validPassports = [];
 
-for (i = 0; i < entriesArr.length; i++) {
+for (let i = 0; i < entriesArr.length; i++) {
   let arr = entriesArr[i];
   if (
     passport[0].test(arr) &&
@@ -1096,15 +1098,15 @@ console.log('There are ' + validPassports.length + ' valid passports');
 
 let validPassportsArr = [];
 
-for (i = 0; i < validPassports.length; i++) {
+for (let i = 0; i < validPassports.length; i++) {
   let arr = validPassports[i].split(' ');
   validPassportsArr.push(arr);
 }
 
 let algoPassports = [];
 
-for (i = 0; i < validPassportsArr.length; i++) {
-  for (j = 0; j < validPassportsArr[i].length; j++) {
+for (let i = 0; i < validPassportsArr.length; i++) {
+  for (let j = 0; j < validPassportsArr[i].length; j++) {
     let byrStrict = validPassportsArr[i][j].match(/(?<=byr:)\d{4}/);
     if (parseInt(byrStrict) >= 1920 && parseInt(byrStrict) <= 2002) {
       algoPassports.push(validPassportsArr[i]);
@@ -1114,8 +1116,8 @@ for (i = 0; i < validPassportsArr.length; i++) {
 
 let algoPassports2 = [];
 
-for (i = 0; i < algoPassports.length; i++) {
-  for (j = 0; j < algoPassports[i].length; j++) {
+for (let i = 0; i < algoPassports.length; i++) {
+  for (let j = 0; j < algoPassports[i].length; j++) {
     let iyrStrict = algoPassports[i][j].match(/(?<=iyr:)\d{4}/);
     if (parseInt(iyrStrict) >= 2010 && parseInt(iyrStrict) <= 2020) {
       algoPassports2.push(algoPassports[i]);
@@ -1125,8 +1127,8 @@ for (i = 0; i < algoPassports.length; i++) {
 
 let algoPassports3 = [];
 
-for (i = 0; i < algoPassports2.length; i++) {
-  for (j = 0; j < algoPassports2[i].length; j++) {
+for (let i = 0; i < algoPassports2.length; i++) {
+  for (let j = 0; j < algoPassports2[i].length; j++) {
     let eyrStrict = algoPassports2[i][j].match(/(?<=eyr:)\d{4}/);
     if (parseInt(eyrStrict) >= 2020 && parseInt(eyrStrict) <= 2030) {
       algoPassports3.push(algoPassports2[i]);
@@ -1136,8 +1138,8 @@ for (i = 0; i < algoPassports2.length; i++) {
 
 let algoPassports4 = [];
 
-for (i = 0; i < algoPassports3.length; i++) {
-  for (j = 0; j < algoPassports3[i].length; j++) {
+for (let i = 0; i < algoPassports3.length; i++) {
+  for (let j = 0; j < algoPassports3[i].length; j++) {
     let hgtStrictCm = algoPassports3[i][j].match(/(?<=hgt:)(\d+)(?=cm)/);
     if (parseInt(hgtStrictCm) >= 150 && parseInt(hgtStrictCm) <= 193) {
       algoPassports4.push(algoPassports3[i]);
@@ -1145,8 +1147,8 @@ for (i = 0; i < algoPassports3.length; i++) {
   }
 }
 
-for (i = 0; i < algoPassports3.length; i++) {
-  for (j = 0; j < algoPassports3[i].length; j++) {
+for (let i = 0; i < algoPassports3.length; i++) {
+  for (let j = 0; j < algoPassports3[i].length; j++) {
     let hgtStrictIn = algoPassports3[i][j].match(/(?<=hgt:)(\d+)(?=in)/);
     if (parseInt(hgtStrictIn) >= 59 && parseInt(hgtStrictIn) <= 76) {
       algoPassports4.push(algoPassports3[i]);
@@ -1156,8 +1158,8 @@ for (i = 0; i < algoPassports3.length; i++) {
 
 let algoPassports5 = [];
 
-for (i = 0; i < algoPassports4.length; i++) {
-  for (j = 0; j < algoPassports4[i].length; j++) {
+for (let i = 0; i < algoPassports4.length; i++) {
+  for (let j = 0; j < algoPassports4[i].length; j++) {
     let hclStrict = algoPassports4[i][j].match(/(?<=hcl:)#([0-9a-f]{6})/);
     if (hclStrict !== null && hclStrict) {
       algoPassports5.push(algoPassports4[i]);
@@ -1167,8 +1169,8 @@ for (i = 0; i < algoPassports4.length; i++) {
 
 let algoPassports6 = [];
 
-for (i = 0; i < algoPassports5.length; i++) {
-  for (j = 0; j < algoPassports5[i].length; j++) {
+for (let i = 0; i < algoPassports5.length; i++) {
+  for (let j = 0; j < algoPassports5[i].length; j++) {
     let eclStrict = algoPassports5[i][j].match(
       /(?<=ecl:)(amb|blu|brn|gry|grn|hzl|oth)/
     );
@@ -1181,8 +1183,8 @@ for (i = 0; i < algoPassports5.length; i++) {
 
 let algoPassports7 = [];
 
-for (i = 0; i < algoPassports6.length; i++) {
-  for (j = 0; j < algoPassports6[i].length; j++) {
+for (let i = 0; i < algoPassports6.length; i++) {
+  for (let j = 0; j < algoPassports6[i].length; j++) {
     let pidStrict = algoPassports6[i][j].match(/(?<=pid:)(\d{9}$)/);
     // \d{9} would match ANY string that contains a nine-digit number (even ten-digit)
     if (pidStrict) {
