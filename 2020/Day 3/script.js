@@ -9,8 +9,10 @@
  * 1, how many trees would you encounter?
  */
 
+"use strict"
 
-let grid =                                      // Create a Template Literal using ` `
+// Create a Template Literal using ` `
+let grid =                                      
 `............#....#.............
 ...........##....#......#..#..#
 ......#.......#......#.........
