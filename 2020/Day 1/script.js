@@ -1,13 +1,13 @@
 /*
  * DAY 1 (I)
- * 
+ *
  * Find the two entries that sum to 2020 and then multiply those two numbers together.
  */
 
+"use strict";
 
 // First we create a Template Literal using ` `
-const entries = 
-`1028
+const entries = `1028
 1987
 1938
 1136
@@ -206,13 +206,13 @@ const entries =
 1098
 1287
 1392
-1932`
+1932`;
 
 // Convert the string into an array with the split() method, creating an array of substrings. As the entries are separated by a newline character, use its escape sequence to split the string.
-let entriesArr = entries.split('\n');
+let entriesArr = entries.split("\n");
 
 // Convert the strings to integers
-entriesArr = entriesArr.map(entry => parseInt(entry));
+entriesArr = entriesArr.map((entry) => parseInt(entry));
 
 const target = 2020;
 
@@ -222,65 +222,64 @@ const target = 2020;
 // Find two numbers that sum to 2020
 let int1, int2;
 
-entriesArr.forEach(valueX => {
-    entriesArr.forEach(valueY => {
-        if (valueX !== valueY && (valueX + valueY) === target) {
-            int1 = valueX;
-            int2 = valueY;
-        }
-    })
+entriesArr.forEach((valueX) => {
+  entriesArr.forEach((valueY) => {
+    if (valueX !== valueY && valueX + valueY === target) {
+      int1 = valueX;
+      int2 = valueY;
+    }
+  });
 });
 
 // Multiply those two numbers
 console.log(int1 * int2);
 
-
 // ***** SOLUTION 2 *****
 // This method gives two times the same result because of iteration and search in two ways
 
 // Multiply those two numbers that sum to 2020
-(function() {
-    entriesArr.forEach(valueX => {
-        entriesArr.forEach(valueY => {
-            if (valueX !== valueY && (valueX + valueY) === target) {
-                console.log(valueX * valueY);
-            }
-        })
+(function () {
+  entriesArr.forEach((valueX) => {
+    entriesArr.forEach((valueY) => {
+      if (valueX !== valueY && valueX + valueY === target) {
+        console.log(valueX * valueY);
+      }
     });
+  });
 })();
-
 
 // ***** SOLUTION 3 *****
 
-let result = entriesArr.map(function(val1) {
-    entriesArr.map(function(val2) {
-        if (val1 !== val2 && (val1 + val2) === target) {
-            console.log(val1 * val2);
-        }
-    })
-})
-
-
+let result = entriesArr.map(function (val1) {
+  entriesArr.map(function (val2) {
+    if (val1 !== val2 && val1 + val2 === target) {
+      console.log(val1 * val2);
+    }
+  });
+});
 
 /*
  * DAY 1 (II)
- * 
+ *
  * Find the three entries that sum to 2020 and then multiply those three numbers together.
  */
 
 // Find three numbers that sum to 2020
 let int3;
 
-entriesArr.forEach(valueX => {
-    entriesArr.forEach(valueY => {
-        entriesArr.forEach(valueZ => {
-            if (valueX !== valueY !== valueZ && (valueX + valueY + valueZ) === target) {
-                int1 = valueX;
-                int2 = valueY;
-                int3 = valueZ;
-            }
-        })
-    })
+entriesArr.forEach((valueX) => {
+  entriesArr.forEach((valueY) => {
+    entriesArr.forEach((valueZ) => {
+      if (
+        (valueX !== valueY) !== valueZ &&
+        valueX + valueY + valueZ === target
+      ) {
+        int1 = valueX;
+        int2 = valueY;
+        int3 = valueZ;
+      }
+    });
+  });
 });
 
 // Multiply those three numbers
