@@ -17,6 +17,7 @@
  * What is the highest seat ID on a boarding pass?
  */
 
+"use strict";
 
 // Create a Template Literal using ` `
 const entries = 
@@ -958,19 +959,19 @@ BFFBBFFLLR`
 let entriesArr = entries.split('\n');
 
 let rows = [];
-for (i = 0; i < 128; i++) {
+for (let i = 0; i < 128; i++) {
     rows[i] = i;
 }
 
 let columns = [];
-for (i = 0; i < 8; i++) {
+for (let i = 0; i < 8; i++) {
     columns[i] = i;
 }
 
 let rowSeat = [];
 let columnSeat = [];
 
-for (i =0; i < entriesArr.length; i++) {
+for (let i =0; i < entriesArr.length; i++) {
     let row = rows;
     if (entriesArr[i][0] === 'F') {
         row = row.slice(0, 64);
@@ -1650,7 +1651,7 @@ for (i =0; i < entriesArr.length; i++) {
 
 let seatID = [];
 
-for (i = 0; i < entriesArr.length; i++) {
+for (let i = 0; i < entriesArr.length; i++) {
     seatID[i] = (Number(rowSeat[i]) * 8) + Number(columnSeat[i]);
 }
 
@@ -1674,7 +1675,7 @@ console.log('The highest seat ID on a boarding pass is ' + maxSeatID);
 seatID.sort((a, b) => a - b);
 
 // As some of the seats at the very front don't exist => i = 1 to omit first result
-for (i = 1; i < seatID.length; i++) {
+for (let i = 1; i < seatID.length; i++) {
     if ((seatID[i] - seatID[i - 1]) != 1) {
         console.log('The ID of my seat is ' + (seatID[i] - 1));
     }
