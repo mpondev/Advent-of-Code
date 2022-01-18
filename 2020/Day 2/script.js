@@ -12,6 +12,8 @@
  * How many passwords are valid according to their policies?
  */
 
+"use strict";
+
 // First we create a Template Literal using ` `
 let entries = `3-4 j: tjjj
 7-10 h: nhhhhhgghphhh
@@ -1068,7 +1070,5 @@ arrEntries.forEach((value) => {
     correctPasword2++;
   }
 });
-
-console.log(correctPasword2);
 
 console.log(correctPasword2);
