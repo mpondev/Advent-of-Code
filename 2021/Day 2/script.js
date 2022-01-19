@@ -1016,6 +1016,11 @@ entriesArr = entriesArr.map(value => value.split(" "));
 console.log(entriesArr);
 
 let position = [0, 0];
+
+let entriesArr2 = entriesArr.map(value => Number(value[1]))
+
+console.log(entriesArr2)
+
 let moving = function(direction, qty) {
     if (direction === 'forward') {
         position[0] += qty;
