@@ -1017,23 +1017,16 @@ console.log(entriesArr);
 
 let position = [0, 0];
 
-let entriesArr2 = entriesArr.map(value => Number(value[1]))
-
-console.log(entriesArr2)
-
-let moving = function(direction, qty) {
-    if (direction === 'forward') {
-        position[0] += qty;
-    } else if (direction === 'down') {
-        position[1] += qty;
-    } else if (direction === 'up') {
-        position[1] -= qty;
+let entriesArr2 = entriesArr.map(value => {
+    if (value[0] === 'forward') {
+        position[0] += Number(value[1])
+    } else if (value[0] === 'down') {
+        position[1] += Number(value[1])
+    } else if (value[0] === 'up') {
+        position[1] -= Number(value[1])
     }
-}
+});
 
-for(let arr of entriesArr) {
-    moving(arr[0], arr[1])
-}
-
+console.log(entriesArr2);
 console.log(position);
-
+console.log(position[0] * position[1]);
