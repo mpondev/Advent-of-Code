@@ -2019,7 +2019,7 @@ for (let i = 1; i < entriesArr.length; i++) {
     }
 }
 
-console.log(counter);
+console.log(counter); // 1154
 
 /*
  * DAY 1 (II)
@@ -2034,4 +2034,4 @@ for (let i = 3; i < entriesArr.length; i++) {
     if (sum1 > sum2) counter += 1;
 }
 
-console.log(counter);
+console.log(counter); // 1127
