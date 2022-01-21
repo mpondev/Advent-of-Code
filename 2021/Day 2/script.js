@@ -1037,10 +1037,10 @@ entriesArr.map(value => {
         position[0] += Number(value[1]);
         position[1] += (Number(value[1]) * position[2]);
     } else if (value[0] === 'down') {
-        position[1] += Number(value[1]);
+        position[2] += Number(value[1]);
     } else if (value[0] === 'up') {
-        position[1] -= Number(value[1]);
+        position[2] -= Number(value[1]);
     }
-})
+});
 
-console.log(position[0] * position[1]); // 1427868 (2034 * 702)
+console.log(position[0] * position[1]); // 1568138742 (2034 * 770963)
