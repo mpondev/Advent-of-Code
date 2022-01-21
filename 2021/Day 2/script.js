@@ -1012,14 +1012,13 @@ forward 5`
 let entriesArr = entries.split("\n").map(value => value.split(" "));
 
 let position = [0, 0];
-
-let entriesArr2 = entriesArr.map(value => {
+entriesArr.map(value => {
     if (value[0] === 'forward') {
-        position[0] += Number(value[1])
+        position[0] += Number(value[1]);
     } else if (value[0] === 'down') {
-        position[1] += Number(value[1])
+        position[1] += Number(value[1]);
     } else if (value[0] === 'up') {
-        position[1] -= Number(value[1])
+        position[1] -= Number(value[1]);
     }
 });
 
@@ -1032,3 +1031,16 @@ console.log(position[0] * position[1]); // 1427868 (2034 * 702)
  * you multiply your final horizontal position by your final depth?
  */
 
+position = [0, 0, 0];   // horizontal position, depth, aim
+entriesArr.map(value => {
+    if (value[0] === 'forward') {
+        position[0] += Number(value[1]);
+        position[1] += (Number(value[1]) * position[2]);
+    } else if (value[0] === 'down') {
+        position[1] += Number(value[1]);
+    } else if (value[0] === 'up') {
+        position[1] -= Number(value[1]);
+    }
+})
+
+console.log(position[0] * position[1]); // 1427868 (2034 * 702)
