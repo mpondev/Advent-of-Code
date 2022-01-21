@@ -1,7 +1,7 @@
 /*
  * DAY 2 (I)
  *
- * HWhat do you get if you multiply your final horizontal position by your final depth?
+ * What do you get if you multiply your final horizontal position by your final depth?
  */
 
 "use strict";
