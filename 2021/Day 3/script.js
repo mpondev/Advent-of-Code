@@ -1,11 +1,11 @@
 /*
  * DAY 3 (I)
  *
- * What is the power consumption of the submarine? (Be sure to represent your answer in
- * decimal, not binary.)
+ * What is the power consumption of the submarine? (Be sure to represent your answer
+ * in decimal, not binary.)
  */
 
-"use strict";
+'use strict';
 
 // First we create a Template Literal using ` `
 const entries = `110011101111
@@ -1007,7 +1007,41 @@ const entries = `110011101111
 100010110101
 111110010001
 110010100001
-000111010110`
+000111010110`;
 
-console.log(entries);
+// Convert the string into an array with the split() method, creating an array of strings. As the entries are separated by a newline character, use its escape sequence to split the string.
+let entriesArr = entries.split('\n');
 
+const gamma = [];
+const epsilon = [];
+
+const countReps = function (arr) {
+  let zeros = [];
+  let ones = [];
+  for (let j = 0; j < arr[0].length; j++) {
+    for (let element of arr) {
+      const bit = element[j];
+      bit === '0' ? zeros.push(bit) : ones.push(bit);
+    }
+    zeros.length > ones.length ? gamma.push(0) : gamma.push(1);
+    zeros = [];
+    ones = [];
+  }
+};
+
+countReps(entriesArr);
+
+for (let element of gamma) {
+  element === 0 ? epsilon.push(1) : epsilon.push(0);
+}
+
+const binToDec = function (arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i] * 2 ** (arr.length - 1 - i);
+  }
+  return sum;
+};
+
+const powerConsumption = binToDec(gamma) * binToDec(epsilon);
+console.log(powerConsumption); // 4006064 (1616 * 2479)
