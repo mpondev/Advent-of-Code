@@ -1045,3 +1045,63 @@ const binToDec = function (arr) {
 
 const powerConsumption = binToDec(gamma) * binToDec(epsilon);
 console.log(powerConsumption); // 4006064 (1616 * 2479)
+
+/*
+ * DAY 3 (II)
+ * Use the binary numbers in your diagnostic report to calculate the oxygen generator
+ * rating and CO2 scrubber rating, then multiply them together. What is the life
+ * support rating of the submarine? (Be sure to represent your answer in decimal, not
+ * binary.)
+ */
+
+console.log(entriesArr);
+console.log(gamma, epsilon);
+
+const countR = function (arr) {
+  const zeros = [];
+  const ones = [];
+  for (let j = 0; j < arr[0].length; j++) {
+    for (let element of arr) {
+      const bit = element[j];
+      bit === '0' ? zeros.push(bit) : ones.push(bit);
+    }
+    if (zeros.length > ones.length) {
+      console.log(0);
+    }
+  }
+};
+
+countR(entriesArr);
+
+// funcion que:
+//  - para cada elemento del array mire cual es el número más repetido en cada posicion
+//  - descarta los menos repetidos y vuelve a hacer lo mismo con el segundo bit
+const oxygen = [];
+const co2 = [];
+const reps = function (arr) {
+  const zeros = [];
+  const ones = [];
+  for (let j = 0; j < arr[0].length; j++) {
+    // binary
+    for (let element of arr) {
+      // bits
+      const bit = element[j];
+      bit === '0' ? zeros.push(bit) : ones.push(bit);
+    }
+    if (zeros.length > ones.length) {
+      // si hay más 0 que 1 en ese bit
+      // comprobar qué elementos coinciden con 0 y mandarlos a un array
+      for (let element of arr) {
+        if (element[j] === '0') {
+          oxygen.push(element);
+        } else {
+          co2.push(element);
+        }
+      }
+    }
+  }
+};
+
+console.log(reps(entriesArr));
+console.log(oxygen);
+console.log(co2);
