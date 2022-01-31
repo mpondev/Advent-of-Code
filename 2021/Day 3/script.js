@@ -1035,15 +1035,8 @@ for (let element of gamma) {
   element === 0 ? epsilon.push(1) : epsilon.push(0);
 }
 
-const binToDec = function (arr) {
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i] * 2 ** (arr.length - 1 - i);
-  }
-  return sum;
-};
-
-const powerConsumption = binToDec(gamma) * binToDec(epsilon);
+const powerConsumption =
+  parseInt(gamma.join(''), 2) * parseInt(epsilon.join(''), 2);
 console.log(powerConsumption); // 4006064 (1616 * 2479)
 
 /*
@@ -1054,54 +1047,33 @@ console.log(powerConsumption); // 4006064 (1616 * 2479)
  * binary.)
  */
 
-console.log(entriesArr);
-console.log(gamma, epsilon);
-
-const countR = function (arr) {
-  const zeros = [];
-  const ones = [];
+const countOx = function (arr) {
+  let oxygen = arr;
   for (let j = 0; j < arr[0].length; j++) {
-    for (let element of arr) {
-      const bit = element[j];
-      bit === '0' ? zeros.push(bit) : ones.push(bit);
-    }
-    if (zeros.length > ones.length) {
-      console.log(0);
+    let counter = oxygen.filter(element => element[j] === '1');
+    if (counter.length >= oxygen.length / 2) {
+      oxygen = oxygen.filter(element => element[j] === '1');
+    } else {
+      oxygen = oxygen.filter(element => element[j] === '0');
     }
   }
+  return oxygen;
 };
 
-countR(entriesArr);
-
-// funcion que:
-//  - para cada elemento del array mire cual es el número más repetido en cada posicion
-//  - descarta los menos repetidos y vuelve a hacer lo mismo con el segundo bit
-const oxygen = [];
-const co2 = [];
-const reps = function (arr) {
-  const zeros = [];
-  const ones = [];
+const countCo2 = function (arr) {
+  let co2 = arr;
   for (let j = 0; j < arr[0].length; j++) {
-    // binary
-    for (let element of arr) {
-      // bits
-      const bit = element[j];
-      bit === '0' ? zeros.push(bit) : ones.push(bit);
+    let counter = co2.filter(element => element[j] === '0');
+    if (counter.length <= co2.length / 2) {
+      co2 = co2.filter(element => element[j] === '0');
+    } else {
+      co2 = co2.filter(element => element[j] === '1');
     }
-    if (zeros.length > ones.length) {
-      // si hay más 0 que 1 en ese bit
-      // comprobar qué elementos coinciden con 0 y mandarlos a un array
-      for (let element of arr) {
-        if (element[j] === '0') {
-          oxygen.push(element);
-        } else {
-          co2.push(element);
-        }
-      }
-    }
+    if (co2.length === 1) break;
   }
+  return co2;
 };
 
-console.log(reps(entriesArr));
-console.log(oxygen);
-console.log(co2);
+console.log(
+  parseInt(countOx(entriesArr), 2) * parseInt(countCo2(entriesArr), 2)
+); // 5941884 (1599 * 3716)
