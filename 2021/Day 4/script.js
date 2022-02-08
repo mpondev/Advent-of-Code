@@ -5,24 +5,19 @@ To guarantee victory against the giant squid, figure out which board will win fi
 
 import entries from './input.js';
 
-// Get numbers and boards
+// Get numbers and boards:
 const entriesArr = entries.split('\n\n');
-const numbers = entriesArr.slice(0, 1); // numbers to be drawn
+const drawNumbers = entriesArr.slice(0, 1);
 const boards = entriesArr.slice(1).map(val => val.split('\n'));
 
-// for (let i = 0; i < boards.length; i++) {
-//   for (let array of boards[i]) {
-//     array.split(' ');
-//   }
-// }
-
-const getBoards = function (arr) {
-  for (x of arr) {
-    return {
-      board: x,
-    };
+boards.forEach(board => {
+  for (let i = 0; i < board.length; i++) {
+    board[i] = board[i]
+      .trim()
+      .split(' ')
+      .filter(x => x !== '');
   }
-};
+});
 
 // Get a number
 // Check if drawn number is in boards
@@ -33,6 +28,10 @@ const getBoards = function (arr) {
 
 // Multiply that sum by the number that was called when the board won
 
-console.log(entriesArr);
-console.log(numbers);
+console.log(drawNumbers);
 console.log(boards);
+console.log(typeof boards[0]);
+console.log(boards[0]);
+console.log(boards[0][0]);
+console.log(typeof boards[0][0]);
+console.log(boards[0][1]);
