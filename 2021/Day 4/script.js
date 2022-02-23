@@ -18,10 +18,25 @@ boards.forEach(board => {
       .filter(x => x !== '');
   }
 });
-for (let [index, letter] of boards.entries()) {
-  console.log(letter);
-}
 
+// FIXME
+console.log(drawNumbers); // Array con BOLITAS del sorteo
+console.log(boards); // CARTONES: Array con 100 arrays correspondientes a los cartones del bingo
+console.log(boards[0]); // CARTÓN: Array con 5 arrays de líneas
+console.log(boards[0][0]); // LÍNEA: Array con 5 strings de números
+console.log(boards[0][0][0]); // NÚMERO: String con número
+
+// 1. Coger una bolita (hasta que se acaben)
+function comprobarBingo(draw, cards) {
+  let [carton, [linea, [numero]]] = boards;
+  // 2. Comprobar en qué cartón aparece el número y sustituirlo por una 'x'
+  // 3. Comprobar si existe algún cartón que tenga una línea
+  // 4. Comprobar si existe algún cartón que tiene una columna
+  console.log(carton);
+  console.log(linea);
+  console.log(numero);
+}
+comprobarBingo(drawNumbers, boards);
 /*
   [ boards  j
     [ board  k
@@ -70,7 +85,6 @@ function checkAll(numeroSorteo, boletos) {
   }
 }
 checkAll(drawNumbers, boards);
-console.log(boards[0]);
 
 // Check if drawn number is in boards
 
@@ -102,18 +116,3 @@ console.log(boards[0]);
 // Sum of all unmarked numbers on the board
 
 // Multiply that sum by the number that was called when the board won
-
-console.log(typeof drawNumbers);
-console.log(drawNumbers);
-console.log(boards);
-console.log(typeof boards[0]);
-console.log(boards[0]);
-console.log(boards[0][0]);
-console.log(typeof boards[0][0]);
-console.log(boards[0][1]);
-
-drawNumbers;
-boards[0];
-
-//checkBoards(boards);
-boards[0];
