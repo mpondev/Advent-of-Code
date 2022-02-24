@@ -1,5 +1,7 @@
 /*
 DAY 4 (I)
+Start by finding the sum of all unmarked numbers on that winning board; in this case, the sum is 188. Then, multiply that sum by the number that was just called when the board won, 24, to get the final score, 188 * 24 = 4512.
+
 To guarantee victory against the giant squid, figure out which board will win first. What will your final score be if you choose that board?
  */
 
@@ -19,93 +21,88 @@ boards.forEach(board => {
   }
 });
 
-// FIXME
-console.log(drawNumbers); // Array con BOLITAS del sorteo
-console.log(boards); // CARTONES: Array con 100 arrays correspondientes a los cartones del bingo
-console.log(boards[0]); // CARTÓN: Array con 5 arrays de líneas
-console.log(boards[0][0]); // LÍNEA: Array con 5 strings de números
-console.log(boards[0][0][0]); // NÚMERO: String con número
+let gameOn = true;
+let winner, coef, winnerBall;
+let lll;
 
-// 1. Coger una bolita (hasta que se acaben)
-function comprobarBingo(draw, cards) {
-  let [carton, [linea, [numero]]] = boards;
-  // 2. Comprobar en qué cartón aparece el número y sustituirlo por una 'x'
-  // 3. Comprobar si existe algún cartón que tenga una línea
-  // 4. Comprobar si existe algún cartón que tiene una columna
-  console.log(carton);
-  console.log(linea);
-  console.log(numero);
-}
-comprobarBingo(drawNumbers, boards);
-/*
-  [ boards  j
-    [ board  k
-      [ line ]  l
-    ]
-  ]
-*/
-
-function checkBingo(draw, cards) {
-  const line = cards.entries();
-  function checkBall() {}
-  // Check if drawn numbers (one by one) are in boards
-  for (const ball of draw) {
-    // Pass through all boards (array), and in each board through all lines (array)
-    checkBall();
+const checkBingo = function (ball, cartons) {
+  for (let i = 0; i < ball.length; i++) {
+    checkCartons(ball[i], cartons);
   }
-}
 
-// const checkBoards = function (arrBoards) {
-//   for (let board of arrBoards) {
-//     checkNumber(board);
-//   }
-// };
+  function checkCartons(ball, cartons) {
+    for (let i = 0; i < cartons.length; i++) {
+      checkWinningColumn(cartons[i]);
+      checkCarton(ball, cartons[i]);
+    }
+  }
 
-// const checkNumber = function (arrBoard) {
-//   for (let board of arrBoard) {
-//     checkLine(board);
-//   }
-// };
-
-// const checkLine = function (arrLine) {
-//   for (let n = 0; n < arrLine.length; n++) {
-//     if (arrLine[n] === drawNumbers[i]) arrLine[n] = 'x';
-//   }
-// };
-
-function checkAll(numeroSorteo, boletos) {
-  for (let i = 0; i < numeroSorteo.length; i++) {
-    for (let j = 0; j < boletos.length; j++) {
-      for (let k = 0; k < boletos[j].length; k++) {
-        for (let l = 0; l < boletos[j][k].length; l++) {
-          if (boletos[j][k][l] === numeroSorteo[i]) boletos[j][k][l] = 'x';
+  function checkCarton(ball, carton) {
+    if (gameOn) {
+      for (let i = 0; i < carton.length; i++) {
+        checkLine(ball, carton[i]);
+      }
+    } else {
+      for (let i = 0; i < carton.length; i++) {
+        for (let line of carton) {
+          if (line.filter(x => x === 'x').length === 5) {
+            winner = carton;
+            winnerBall = ball;
+          }
         }
       }
     }
   }
+
+  // Function to check if there's a winning column and stop the game
+  function checkWinningColumn(carton) {
+    let cartonTemp = carton;
+    cartonTemp = cartonTemp[0].map((_, colIndex) =>
+      cartonTemp.map(row => row[colIndex])
+    );
+    for (let i = 0; i < cartonTemp.length; i++) {
+      checkWinningLine(cartonTemp[i]);
+    }
+  }
+
+  // Function to check if there's a winning line and stop the game
+  function checkWinningLine(line) {
+    if (line.filter(x => x === 'x').length === 5) {
+      gameOn = false;
+    }
+  }
+
+  // Function to check lines looking for the drawn number
+  function checkLine(ball, line) {
+    if (gameOn) {
+      for (let i = 0; i < line.length; i++) {
+        if (ball === line[i]) {
+          line[i] = 'x';
+        }
+      }
+      checkWinningLine(line);
+    }
+  }
+
+  console.log(lll);
+  console.log(winner);
+  console.log(cartons.indexOf(lll));
+};
+
+checkBingo(drawNumbers, boards);
+
+const result = winner.map(arr => arr.filter(x => x !== 'x'));
+for (let i = 0; i < result.length; i++) {
+  for (let j = 0; j < result[i].length; j++) {
+    result[i][j] = parseInt(result[i][j]);
+  }
+  result[i] = result[i].reduce((x, y) => x + y, 0);
 }
-checkAll(drawNumbers, boards);
+coef = result.reduce((x, y) => x + y, 0);
 
-// Check if drawn number is in boards
-
-// const checkBoard = function (board) {
-//   // Check rows
-//   for (let i = 0; i < board[i].length; i++) {
-//     let aciertos = board[i].filter(x => x === 'x').length;
-//     if (aciertos === board[i].length) {
-//       break;
-//     }
-//   }
-//   // Check columns
-//   for (let j = 0; j < board[i].length; j++) {}
-// };
-
-// // Get a number
-// for (let i = 0; i < drawNumbers.length; i++) {
-//   for (let j = 0; j < boards.length; j++) {
-//     checkBoard(boards[j]);
-//   }
-// }
+console.log(coef);
+console.log(winnerBall);
+console.log(coef * winnerBall); // 76707 (947 * 81) (Wrong because checkColumns missing)
 
 // // Let has local scope
 // let array = [1, 2, 3, 5, 2, 8, 9, 2]
