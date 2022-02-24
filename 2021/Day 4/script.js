@@ -27,23 +27,21 @@ let lll;
 
 const checkBingo = function (ball, cartons) {
   for (let i = 0; i < ball.length; i++) {
-    checkCartons(ball[i], cartons);
+    if (gameOn) {
+      checkCartons(ball[i], cartons);
+    }
   }
 
   function checkCartons(ball, cartons) {
     for (let i = 0; i < cartons.length; i++) {
-      checkWinningColumn(cartons[i]);
       checkCarton(ball, cartons[i]);
     }
   }
 
   function checkCarton(ball, carton) {
-    if (gameOn) {
-      for (let i = 0; i < carton.length; i++) {
-        checkLine(ball, carton[i]);
-      }
-    } else {
-      for (let i = 0; i < carton.length; i++) {
+    for (let i = 0; i < carton.length; i++) {
+      checkLine(ball, carton[i]);
+      if (!gameOn) {
         for (let line of carton) {
           if (line.filter(x => x === 'x').length === 5) {
             winner = carton;
@@ -54,15 +52,14 @@ const checkBingo = function (ball, cartons) {
     }
   }
 
-  // Function to check if there's a winning column and stop the game
-  function checkWinningColumn(carton) {
-    let cartonTemp = carton;
-    cartonTemp = cartonTemp[0].map((_, colIndex) =>
-      cartonTemp.map(row => row[colIndex])
-    );
-    for (let i = 0; i < cartonTemp.length; i++) {
-      checkWinningLine(cartonTemp[i]);
+  // Function to check lines looking for the drawn number
+  function checkLine(ball, line) {
+    for (let i = 0; i < line.length; i++) {
+      if (ball === line[i]) {
+        line[i] = 'x';
+      }
     }
+    checkWinningLine(line);
   }
 
   // Function to check if there's a winning line and stop the game
@@ -71,23 +68,18 @@ const checkBingo = function (ball, cartons) {
       gameOn = false;
     }
   }
-
-  // Function to check lines looking for the drawn number
-  function checkLine(ball, line) {
-    if (gameOn) {
-      for (let i = 0; i < line.length; i++) {
-        if (ball === line[i]) {
-          line[i] = 'x';
-        }
-      }
-      checkWinningLine(line);
-    }
-  }
-
-  console.log(lll);
-  console.log(winner);
-  console.log(cartons.indexOf(lll));
 };
+
+// // Function to check if there's a winning column and stop the game
+// function checkWinningColumn(carton) {
+//   let cartonTemp = carton;
+//   cartonTemp = cartonTemp[0].map((_, colIndex) =>
+//     cartonTemp.map(row => row[colIndex])
+//   );
+//   for (let i = 0; i < cartonTemp.length; i++) {
+//     checkWinningLine(cartonTemp[i]);
+//   }
+// }
 
 checkBingo(drawNumbers, boards);
 
@@ -102,14 +94,4 @@ coef = result.reduce((x, y) => x + y, 0);
 
 console.log(coef);
 console.log(winnerBall);
-console.log(coef * winnerBall); // 76707 (947 * 81) (Wrong because checkColumns missing)
-
-// // Let has local scope
-// let array = [1, 2, 3, 5, 2, 8, 9, 2]
-
-// // Functional filter with an Arrow function
-// array.filter(x => x === 2).length  // -> 3
-
-// Sum of all unmarked numbers on the board
-
-// Multiply that sum by the number that was called when the board won
+console.log(coef * winnerBall); // 41668 (947 * 44)
