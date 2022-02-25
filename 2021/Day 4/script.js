@@ -23,7 +23,6 @@ boards.forEach(board => {
 
 let gameOn = true;
 let winner, coef, winnerBall;
-let lll;
 
 const checkBingo = function (ball, cartons) {
   for (let i = 0; i < ball.length; i++) {
@@ -70,17 +69,6 @@ const checkBingo = function (ball, cartons) {
   }
 };
 
-// // Function to check if there's a winning column and stop the game
-// function checkWinningColumn(carton) {
-//   let cartonTemp = carton;
-//   cartonTemp = cartonTemp[0].map((_, colIndex) =>
-//     cartonTemp.map(row => row[colIndex])
-//   );
-//   for (let i = 0; i < cartonTemp.length; i++) {
-//     checkWinningLine(cartonTemp[i]);
-//   }
-// }
-
 checkBingo(drawNumbers, boards);
 
 const result = winner.map(arr => arr.filter(x => x !== 'x'));
@@ -95,3 +83,26 @@ coef = result.reduce((x, y) => x + y, 0);
 console.log(coef);
 console.log(winnerBall);
 console.log(coef * winnerBall); // 41668 (947 * 44)
+console.log(boards);
+/*
+DAY 4 (II)
+Figure out which board will win last. Once it wins, what would its final score be?
+ */
+
+let game2On = true;
+
+const checkLastBingo = function (ball, cartons) {
+  for (let i = drawNumbers.indexOf(winnerBall); i < ball.length; i++) {
+    if (game2On) {
+      checkCartons(ball[i], cartons);
+    }
+  }
+
+  function checkCartons(ball, cartons) {
+    for (let i = 0; i < cartons.length; i++) {
+      checkCarton(ball, cartons[i]);
+    }
+  }
+};
+
+checkLastBingo(drawNumbers, boards);
