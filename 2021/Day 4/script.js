@@ -76,9 +76,9 @@ for (let i = 0; i < boardSum.length; i++) {
 }
 boardSum = boardSum.reduce((x, y) => x + y, 0);
 
-console.log(boardSum);
-console.log(winnerBall);
-console.log(boardSum * winnerBall); // 41668 (947 * 44)
+console.log(
+  `Part I. Winner score: ${boardSum * winnerBall} (${boardSum} * ${winnerBall})`
+); // 41668 (947 * 44)
 
 /*
 DAY 4 (II)
@@ -132,6 +132,8 @@ for (let i = 0; i < boardSum.length; i++) {
 }
 boardSum = boardSum.reduce((x, y) => x + y, 0);
 
-console.log(boardSum);
-console.log(winnerBall);
-console.log(boardSum * winnerBall); // 10478 (338 * 31)
+console.log(
+  `Part II. Winner score: ${
+    boardSum * winnerBall
+  } (${boardSum} * ${winnerBall})`
+); // 10478 (338 * 31)
