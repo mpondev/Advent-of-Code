@@ -32,18 +32,16 @@ let winner, winnerBall, boardSum;
 const checkBingo = function (balls, cartons) {
   for (const ball of balls) {
     if (gameOn) {
-      cartons.forEach(function (carton, i) {
-        for (let j = 0; j < cartons.length; j++) {
-          for (let k = 0; k < cartons[j].length; k++) {
-            for (let l = 0; l < cartons[j][k].length; l++) {
-              if (ball === cartons[j][k][l]) {
-                cartons[j][k][l] = 'x';
-              }
+      for (let j = 0; j < cartons.length; j++) {
+        for (let k = 0; k < cartons[j].length; k++) {
+          for (let l = 0; l < cartons[j][k].length; l++) {
+            if (ball === cartons[j][k][l]) {
+              cartons[j][k][l] = 'x';
             }
           }
         }
-        winnerBall = ball;
-      });
+      }
+      winnerBall = ball;
     }
     for (let m = 0; m < cartons.length; m++) {
       for (let n = 0; n < cartons[m].length; n++) {
