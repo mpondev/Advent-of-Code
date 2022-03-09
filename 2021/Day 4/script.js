@@ -7,7 +7,7 @@ To guarantee victory against the giant squid, figure out which board will win fi
 
 import data from './input.js';
 
-// Get numbers and boards:
+// Get and format numbers and boards:
 const dataArr = data.split('\n\n');
 const drawNumbers = dataArr
   .slice(0, 1)
@@ -27,21 +27,23 @@ boards.forEach(board => {
 });
 
 let gameOn = true;
-let winner, winnerBall;
+let winner, winnerBall, boardSum;
 
 const checkBingo = function (balls, cartons) {
   for (const ball of balls) {
     if (gameOn) {
-      for (let j = 0; j < cartons.length; j++) {
-        for (let k = 0; k < cartons[j].length; k++) {
-          for (let l = 0; l < cartons[j][k].length; l++) {
-            if (ball === cartons[j][k][l]) {
-              cartons[j][k][l] = 'x';
+      cartons.forEach(function (carton, i) {
+        for (let j = 0; j < cartons.length; j++) {
+          for (let k = 0; k < cartons[j].length; k++) {
+            for (let l = 0; l < cartons[j][k].length; l++) {
+              if (ball === cartons[j][k][l]) {
+                cartons[j][k][l] = 'x';
+              }
             }
           }
         }
-      }
-      winnerBall = ball;
+        winnerBall = ball;
+      });
     }
     for (let m = 0; m < cartons.length; m++) {
       for (let n = 0; n < cartons[m].length; n++) {
@@ -66,15 +68,18 @@ const checkBingo = function (balls, cartons) {
       }
     }
   }
+  winnerScore(winner);
 };
 
 checkBingo(drawNumbers, boards);
 
-let boardSum = winner.map(arr => arr.filter(x => x !== 'x'));
-for (let i = 0; i < boardSum.length; i++) {
-  boardSum[i] = boardSum[i].reduce((x, y) => x + y, 0);
+function winnerScore(carton) {
+  boardSum = winner.map(arr => arr.filter(x => x !== 'x'));
+  for (let i = 0; i < boardSum.length; i++) {
+    boardSum[i] = boardSum[i].reduce((x, y) => x + y, 0);
+  }
+  boardSum = boardSum.reduce((x, y) => x + y, 0);
 }
-boardSum = boardSum.reduce((x, y) => x + y, 0);
 
 console.log(
   `Part I. Winner score: ${boardSum * winnerBall} (${boardSum} * ${winnerBall})`
@@ -122,15 +127,10 @@ const checkLastBingo = function (balls, cartons) {
       }
     }
   }
+  winnerScore(winner);
 };
 
 checkLastBingo(drawNumbers, boards);
-
-boardSum = winner.map(arr => arr.filter(x => x !== 'x'));
-for (let i = 0; i < boardSum.length; i++) {
-  boardSum[i] = boardSum[i].reduce((x, y) => x + y, 0);
-}
-boardSum = boardSum.reduce((x, y) => x + y, 0);
 
 console.log(
   `Part II. Winner score: ${
