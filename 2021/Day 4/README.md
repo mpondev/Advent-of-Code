@@ -1,4 +1,4 @@
-# Advent of Code 2021 -- Day 3: Giant Squid
+# Advent of Code 2021 -- Day 4: Giant Squid
 
 Those are my solutions.
 
