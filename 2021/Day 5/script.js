@@ -6,3 +6,21 @@ Consider only horizontal and vertical lines. At how many points do at least two 
  */
 
 import data from './input.js';
+
+// Format data to get --> [x1, y1, x2, y2]
+const vents = data.split('\n').map(x =>
+  x
+    .split(' -> ')
+    .map(y => y.split(','))
+    .flat()
+    .map(Number)
+);
+
+// Extract horizontal and vertical lines (x1 = x2 or y1 = y2)
+const linesHorVer = [];
+for (let [x1, y1, x2, y2] of vents) {
+  if (x1 === x2 || y1 === y2) {
+    linesHorVer.push([x1, y1, x2, y2]);
+  }
+}
+console.log(linesHorVer);
