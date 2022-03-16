@@ -16,62 +16,32 @@ const vents = data.split('\n').map(x =>
     .map(Number)
 );
 
-// Extract horizontal (y1 = y2) and vertical lines (x1 = x2)
-const linesHor = []; // 147 horizontal lines
-const linesVer = []; // 168 vertical lines
-for (let [x1, y1, x2, y2] of vents) {
-  if (x1 === x2) {
-    y1 > y2 ? linesVer.push([x1, y2, x2, y1]) : linesVer.push([x1, y1, x2, y2]);
-  }
-  if (y1 === y2) {
-    x1 > x2 ? linesHor.push([x2, y2, x1, y1]) : linesHor.push([x1, y1, x2, y2]);
-  }
-}
-console.log(linesHor);
-console.log(linesHor[0]);
-console.log(linesVer);
-console.log(linesVer[0]);
+const overlap = function (vents) {
+  const ventMap = {};
+  let overlaps = 0;
 
-// Iterate over all horizontal lines and check crosses with vertical lines and overlaps with other horizontal lines
-let crosses = 0;
-for (let [x1, y1, x2, y2] of linesHor) {
-  for (let [a1, b1, a2, b2] of linesVer) {
-    if (x1 <= a1 && a1 <= x2 && b1 <= y1 && y1 <= b2) {
-      crosses++;
-    }
-  }
-  for (let [a1, b1, a2, b2] of linesHor) {
-    let overlap = 0;
-    if (y1 === b1) {
-      if (a1 <= x1 && a2 <= x2) {
-        overlap = a2 - x1;
-      } else if (a1 <= x2 && x2 <= a2) {
-        overlap = x2 - a1;
-      } else if (x1 <= a1 && a2 <= x2) {
-        overlap = a2 - a1;
+  for (let i = 0; i < vents.length; i++) {
+    const [x1, y1, x2, y2] = vents[i];
+    if (y1 === y2) {
+      for (let x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
+        if (!ventMap[[x, y1]]) ventMap[[x, y1]] = 1;
+        else {
+          ventMap[[x, y1]]++;
+          if (ventMap[[x, y1]] === 2) overlaps++;
+        }
       }
     }
-    crosses += overlap;
-  }
-}
-for (let [x1, y1, x2, y2] of linesVer) {
-  for (let [a1, b1, a2, b2] of linesVer) {
-    let overlap = 0;
-    if (x1 === a1) {
-      if (b1 <= y1 && y1 <= b2 && b2 <= y2) {
-        overlap = b2 - y1;
-      } else if (b1 >= y1 && y2 <= b2 && b1 <= y2) {
-        overlap = y2 - b1;
-      } else if (y1 <= b1 && b2 <= b2) {
-        overlap = b2 - b1;
+    if (x1 === x2) {
+      for (let y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
+        if (!ventMap[[x1, y]]) ventMap[[x1, y]] = 1;
+        else {
+          ventMap[[x1, y]]++;
+          if (ventMap[[x1, y]] === 2) overlaps++;
+        }
       }
     }
-    crosses += overlap;
   }
-}
+  console.log(overlaps);
+};
 
-console.log(crosses); // 2729 crosses is too low (24696 possibilities)
-// 52768 is wrong
-// 53695 is wrong
-// 108252 is wrong
-// 108588 is wrong
+overlap(vents); // 3990
