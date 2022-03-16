@@ -45,3 +45,8 @@ const overlap = function (vents) {
 };
 
 overlap(vents); // 3990
+
+/*
+DAY 5 (II)
+Now consider horizontal, vertical and diagonal (45 degrees) lines. At how many points do at least two lines overlap?
+ */
