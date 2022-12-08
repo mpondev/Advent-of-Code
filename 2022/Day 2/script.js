@@ -9,8 +9,6 @@ import data from './input.js';
 
 // A: Rock, B: Paper, C: Scissors
 // X: Rock, Y: Paper, Z: Scissors
-// 1: Rock, 2: Paper, and 3: Scissors
-// 0: lost, 3: draw, 6: won
 
 const rounds = data.split('\n').map(el => el.split(' '));
 
@@ -53,10 +51,6 @@ Following the Elf's instructions for the second column, what would your total sc
  */
 
 // X: lose, Y: draw, Z: win
-// A: Rock, B: Paper, C: Scissors
-// X: Rock, Y: Paper, Z: Scissors
-// 1: Rock, 2: Paper, and 3: Scissors
-// 0: lost, 3: draw, 6: won
 
 const getTotalScore2 = function (rounds) {
   let totalScore = 0;
