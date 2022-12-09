@@ -16,46 +16,54 @@ rucksacks.forEach((el, index) => {
   compartments[index] = [el.slice(0, middle), el.slice(middle)];
 });
 
-function priorityCalc(char) {
-  // Check if character is uppercase
-  if (char === char.toUpperCase()) {
-    // charCodeAt returns the Unicode of the character specified
-    return char.charCodeAt() - 38; // 'A' Unicode dec. = 65 ('A' priority = 27)
-  } else {
-    return char.charCodeAt() - 96; // 'a' Unicode dec. = 97 ('a' priority = 1)
-  }
-}
-
-const repeatedItems = function (compartments) {
+function prioritySum(compartments) {
+  // Find out the repeated character within two/three strings
   let repeated = [];
   for (let compartment of compartments) {
     for (let letter0 of compartment[0]) {
-      if (compartment[1].includes(letter0)) {
-        repeated.push(letter0);
-        break;
+      // Check if there are two compartments (Part I) or three (Part II)
+      if (!compartment[2]) {
+        if (compartment[1].includes(letter0)) {
+          repeated.push(letter0);
+          break;
+        }
+      } else {
+        if (
+          compartment[1].includes(letter0) &&
+          compartment[2].includes(letter0)
+        ) {
+          repeated.push(letter0);
+          break;
+        }
       }
     }
   }
-  return repeated;
-};
 
-const priorities = repeatedItems(compartments).map(el => {
-  return priorityCalc(el);
-});
+  // Convert the character (string) to priority (number)
+  const priority = repeated.map(el => {
+    if (el === el.toUpperCase()) {
+      // charCodeAt returns the Unicode of the character specified
+      return el.charCodeAt() - 38; // 'A' Unicode dec. = 65 ('A' priority = 27)
+    } else {
+      return el.charCodeAt() - 96; // 'a' Unicode dec. = 97 ('a' priority = 1)
+    }
+  });
 
-const prioritiesSum = priorities.reduce((a, b) => a + b, 0);
+  return priority.reduce((a, b) => a + b, 0);
+}
 
-console.log(prioritiesSum); // 8088 (Test: 157)
+console.log(prioritySum(compartments)); // 8088 (Test: 157)
 
 /*
 DAY 3 (II)
  */
 
-console.log(rucksacks);
-
+// Divide rucksacks into groups of three
 const groups = [];
-groups.push([rucksacks[0], rucksacks[1], rucksacks[2]]);
+for (let i = 0; i < rucksacks.length; i++) {
+  if (i % 3 === 0) {
+    groups.push([rucksacks[i], rucksacks[i + 1], rucksacks[i + 2]]);
+  }
+}
 
-console.log(groups);
-
-const badge = function (arr) {};
+console.log(prioritySum(groups)); // 2522 (Test: 70)
