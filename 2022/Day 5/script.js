@@ -5,7 +5,7 @@ DAY 5 (I)
 After the rearrangement procedure completes, what crate ends up on top of each stack? (CrateMover 9000)
  */
 
-import data from './inputTest.js';
+import data from './input.js';
 
 // Extract the starting stacks and the rearrangement procedure from data
 const [stacks, procedure] = data.split('\n\n');
@@ -41,17 +41,29 @@ const startingStacks = function () {
 };
 
 // Rearrange crates
-function rearrangeCrates(arr, procedure) {
+function rearrangeCrates(arr, procedure, crateMover) {
   for (let proc of procedure) {
-    for (let i = 0; i < proc[0]; i++) {
-      arr[proc[2] - 1].unshift(arr[proc[1] - 1].shift());
+    // CrateMover 9000 moves one crate at once
+    if (crateMover == 9000) {
+      for (let i = 0; i < proc[0]; i++) {
+        arr[proc[2] - 1].unshift(arr[proc[1] - 1].shift());
+      }
+      // CrateMover 9001 moves multiple crates at once
+    } else if (crateMover == 9001) {
+      let tempStack = [];
+      for (let i = 0; i < proc[0]; i++) {
+        tempStack.push(arr[proc[1] - 1].shift());
+      }
+      for (let i = 0; i < proc[0]; i++) {
+        arr[proc[2] - 1].unshift(tempStack.pop());
+      }
     }
   }
   return arr;
 }
 
 // Get message
-const finalStacks = rearrangeCrates(startingStacks(), procedureNumbers);
+let finalStacks = rearrangeCrates(startingStacks(), procedureNumbers, 9000);
 
 function getMessage() {
   const message = [];
@@ -66,3 +78,6 @@ console.log(getMessage()); // HBTMTBSDC (Test: CMZ)
 DAY 5 (II)
 After the rearrangement procedure completes, what crate ends up on top of each stack? (CrateMover 9001)
  */
+
+finalStacks = rearrangeCrates(startingStacks(), procedureNumbers, 9001);
+console.log(getMessage()); // PQTJRSHWS (Test: MCD)
