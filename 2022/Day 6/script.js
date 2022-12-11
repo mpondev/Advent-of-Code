@@ -2,18 +2,21 @@
 
 /*
 DAY 6 (I)
-How many characters need to be processed before the first start-of-packet marker is detected?
+How many characters need to be processed before the first start-of-packet marker is detected? (4 distinct characters)
  */
 
-import { test1, test2, test3, test4, test5 } from './inputTest.js';
+// import { test1, test2, test3, test4, test5 } from './inputTest.js';
 import data from './input.js';
 
-function findStart(str) {
+function findStart(str, distinctChar) {
   const datastream = str.split('');
-  const temp = [datastream[0], datastream[1], datastream[2], datastream[3]];
-  let solution = 4;
-  for (let i = 4; i < datastream.length; i++) {
-    if (new Set(temp).size < 4) {
+  const temp = [];
+  for (let i = 0; i < distinctChar; i++) {
+    temp.push(datastream[`${i}`]);
+  }
+  let solution = distinctChar;
+  for (let i = distinctChar; i < datastream.length; i++) {
+    if (new Set(temp).size < distinctChar) {
       temp.shift();
       temp.push(datastream[i]);
       solution++;
@@ -22,10 +25,11 @@ function findStart(str) {
   return solution;
 }
 
-console.log(findStart(data)); // 1198
+console.log(findStart(data, 4)); // 1198 (Tests: 7 - 5 - 6 - 10 - 11)
 
-console.log(findStart(test1)); // (Test: 7)
-console.log(findStart(test2)); // (Test: 5)
-console.log(findStart(test3)); // (Test: 6)
-console.log(findStart(test4)); // (Test: 10)
-console.log(findStart(test5)); // (Test: 11)
+/*
+DAY 6 (II)
+How many characters need to be processed before the first start-of-message marker is detected? (14 distinct characters)
+ */
+
+console.log(findStart(data, 14)); // 3120 (Tests: 19 - 23 - 23 - 29 - 26)
