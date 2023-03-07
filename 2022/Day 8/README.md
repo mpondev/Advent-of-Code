@@ -42,7 +42,7 @@ Content with the amount of tree cover available, the Elves just need to know the
 
 To measure the viewing distance from a given tree, look up, down, left, and right from that tree; stop if you reach an edge or at the first tree that is the same height or taller than the tree under consideration. (If a tree is right on the edge, at least one of its viewing distances will be zero.)
 
-The Elves don't care about distant trees taller than those found by the rules above; the proposed tree house has large eaves to keep it dry, so they wouldn't be able to see higher than the tree house anyway.
+The Elves don't care about distant trees taller than those found by the rules above; the proposed tree house has large leaves to keep it dry, so they wouldn't be able to see higher than the tree house anyway.
 
 In the example above, consider the middle 5 in the second row:
 
