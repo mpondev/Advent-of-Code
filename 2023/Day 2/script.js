@@ -47,4 +47,27 @@ DAY 2 (II)
 What is the sum of the power of these sets?
  */
 
-// (Test: 2286)
+function powerSetsSum() {
+  let sum = 0;
+
+  for (let game of games) {
+    const fewestTarget = {
+      red: 0,
+      green: 0,
+      blue: 0,
+    };
+
+    for (let subset of game) {
+      for (let item of subset) {
+        const [number, color] = item.split(' ');
+        if (fewestTarget[color] < Number(number))
+          fewestTarget[color] = Number(number);
+      }
+    }
+    const power = Object.values(fewestTarget).reduce((a, b) => a * b);
+    sum += power;
+  }
+  console.log(sum);
+}
+
+powerSetsSum(); // 63542 (Test: 2286)
