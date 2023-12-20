@@ -13,8 +13,6 @@ const [time, recordDistance] = data
   .map(line => line.slice(1))
   .map(line => line.map(num => Number(num)));
 
-console.log(time, recordDistance);
-
 function checkRecords(time, recordDistance) {
   let beatTimes = 0;
   for (let i = 0; i < time; i++) {
@@ -35,3 +33,30 @@ console.log(result.reduce((a, b) => a * b)); // 512295 (Test: 288)
 DAY 6 (II)
 How many ways can you beat the record in this one much longer race?
  */
+
+const [singleTime, singleRecord] = data
+  .split('\n')
+  .map(line => line.split(/\s+/))
+  .map(line => Number(line.slice(1).join('')));
+
+function checkRecord(singleTime, singleRecord) {
+  let middle = Math.floor(singleTime / 2);
+  let beatTimes = 0;
+
+  for (let i = middle; i > 0; i--) {
+    (singleTime - i) * i > singleRecord && beatTimes++;
+    if ((singleTime - i) * i < singleRecord) {
+      break;
+    }
+  }
+  for (let i = middle + 1; i < singleTime; i++) {
+    (singleTime - i) * i > singleRecord && beatTimes++;
+    if ((singleTime - i) * i < singleRecord) {
+      break;
+    }
+  }
+
+  return beatTimes;
+}
+
+console.log(checkRecord(singleTime, singleRecord)); // 36530883 (Test: 71503)
