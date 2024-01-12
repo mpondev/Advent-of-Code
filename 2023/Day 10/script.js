@@ -284,3 +284,6 @@ function findInner() {
 console.log(findInner());
 
 // 357 (Test: 4, 4, 8, 10)
+
+// TODO
+// Study a solution using Pick's theorem and Shoelace formula
