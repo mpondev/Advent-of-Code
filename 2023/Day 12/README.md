@@ -68,12 +68,12 @@ The last line is actually consistent with ten different arrangements! Because th
 
 In this example, the number of possible arrangements for each row is:
 
-- ???.### 1,1,3 - 1 arrangement
-- .??..??...?##. 1,1,3 - 4 arrangements
-- ?#?#?#?#?#?#?#? 1,3,1,6 - 1 arrangement
-- ????.#...#... 4,1,1 - 1 arrangement
-- ????.######..#####. 1,6,5 - 4 arrangements
-- ?###???????? 3,2,1 - 10 arrangements
+- ???.### 1,1,3 --> 1 arrangement
+- .??..??...?##. 1,1,3 --> 4 arrangements
+- ?#?#?#?#?#?#?#? 1,3,1,6 --> 1 arrangement
+- ????.#...#... 4,1,1 --> 1 arrangement
+- ????.######..#####. 1,6,5 --> 4 arrangements
+- ?###???????? 3,2,1 --> 10 arrangements
 
 Adding all of the possible arrangement counts together produces a total of 21 arrangements.
 
