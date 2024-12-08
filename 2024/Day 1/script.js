@@ -32,4 +32,17 @@ DAY 1 (II)
 Once again consider your left and right lists. What is their similarity score?
  */
 
-// (Test: 31)
+function similarityScore(list1, list2) {
+  let score = 0;
+  list1.forEach(x => {
+    list2.forEach(y => {
+      if (x === y) {
+        score += x;
+      }
+    });
+  });
+
+  return score;
+}
+
+console.log(similarityScore(list1, list2)); // 20351745 (Test: 31)
