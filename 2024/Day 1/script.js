@@ -7,4 +7,29 @@ What is the total distance between your lists?
 
 import data from './input.js';
 
-// (Test: 11)
+// Prepare lists
+const list1 = [];
+const list2 = [];
+
+data
+  .split('\n')
+  .map(line => line.split(/\s+/).map(Number))
+  .forEach(line => {
+    list1.push(line[0]);
+    list2.push(line[1]);
+  });
+
+list1.sort((a, b) => a - b);
+list2.sort((a, b) => a - b);
+
+// Calculate distance
+const distance = list1.reduce((acc, x, i) => acc + Math.abs(x - list2[i]), 0);
+
+console.log(distance); // 1579939 (Test: 11)
+
+/*
+DAY 1 (II)
+Once again consider your left and right lists. What is their similarity score?
+ */
+
+// (Test: 31)
