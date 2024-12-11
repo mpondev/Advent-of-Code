@@ -19,7 +19,7 @@ function isSafeReport(report, comparator) {
   return true;
 }
 
-function safeReports() {
+function safeReports(dampener = false) {
   let safeReportsCount = 0;
 
   // Comparator functions
@@ -31,7 +31,11 @@ function safeReports() {
   reports.forEach(report => {
     if (
       isSafeReport(report, isSafeIncrease) ||
-      isSafeReport(report, isSafeDecrease)
+      isSafeReport(report, isSafeDecrease) ||
+      // Check if the report is safe with one level removed
+      (dampener &&
+        (isSafeWithOneRemoval(report, isSafeIncrease) ||
+          isSafeWithOneRemoval(report, isSafeDecrease)))
     ) {
       safeReportsCount++;
     }
@@ -47,4 +51,15 @@ DAY 2 (II)
 Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
  */
 
-// (Test: 4)
+// Function to check the safety criteria removing one level
+function isSafeWithOneRemoval(report, comparator) {
+  for (let i = 0; i < report.length; i++) {
+    const modifiedReport = report.slice(0, i).concat(report.slice(i + 1));
+    if (isSafeReport(modifiedReport, comparator)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+console.log(safeReports(true)); // 364 (Test: 4)
