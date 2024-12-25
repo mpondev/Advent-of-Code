@@ -51,4 +51,20 @@ DAY 4 (II)
 Flip the word search from the instructions back over to the word search side and try again. How many times does an X-MAS appear?
  */
 
-// (Test: 9)
+// Using a fixed line length (it wouldn't work for other inputs like the test case)
+
+/*
+console.log(
+  data.match(/(?=(M|S).(M|S).{139}A.{139}(?!\2)(M|S).(?!\1)(M|S))/gs).length
+);
+*/
+
+// Using dynamic line length
+const regexX = new RegExp(
+  `(?=(M|S).(M|S).{${lineLength - 1}}A.{${
+    lineLength - 1
+  }}(?!\\2)(M|S).(?!\\1)(M|S))`,
+  'gs'
+);
+
+console.log(data.match(regexX).length); // 1985 (Test: 9)
